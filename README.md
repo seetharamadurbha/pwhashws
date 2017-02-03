@@ -82,37 +82,21 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
    
    ```
     * Connected to localhost (127.0.0.1) port 1234 (#0)
-   
     > POST /hash HTTP/1.1
-    
     > Host: localhost:1234
-    
     > User-Agent: curl/7.43.0
-    
     > Accept: */*
-    
     > Content-Length: 20
-    
     > Content-Type: application/x-www-form-urlencoded
-    
     >
-     
     * upload completely sent off: 20 out of 20 bytes
-    
     < HTTP/1.1 200 OK
-    
     < Connection: close
-    
     < Content-Length: 1
-    
     < Date: Fri, 03 Feb 2017 11:33:06 MST
-    
     < Content-Type: text/plain; charset=UTF-8
-    
     <
-     
     * Closing connection 0
-    
     1
    ```
     
