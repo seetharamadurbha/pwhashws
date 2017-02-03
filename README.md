@@ -42,6 +42,7 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
    `java -Djava.util.logging.config.file=logging.properties -classpath ./target/classes com.durbha.jc.pwhasher.Main -port 1234 -ipAddress localhost`
    
    You should see a successful server startup with the following output on the command line.
+   
    `Listening for transport dt_socket at address: 1234
     Starting with configuration: 
 	portNumber: 1234
@@ -71,37 +72,60 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
    The service can be tested with any HTTP client (using a browser, for example). But `curl` is probably the easiest from a command line.
    1. Start the server. Please see 'Running the web service' above.
    2. POSTing a request. Run the following command
+   
    `curl -v -d 'password=AngryMonkey' http://localhost:1234/hash`
+
    Note: The verbose option (-v) is included above, so you can see the details.
    You should see the following output.
+   
    `* Connected to localhost (127.0.0.1) port 1234 (#0)
+   
     > POST /hash HTTP/1.1
+    
     > Host: localhost:1234
+    
     > User-Agent: curl/7.43.0
+    
     > Accept: */*
+    
     > Content-Length: 20
+    
     > Content-Type: application/x-www-form-urlencoded
-    > 
+    
+    >
+     
     * upload completely sent off: 20 out of 20 bytes
+    
     < HTTP/1.1 200 OK
+    
     < Connection: close
+    
     < Content-Length: 1
+    
     < Date: Fri, 03 Feb 2017 11:33:06 MST
+    
     < Content-Type: text/plain; charset=UTF-8
-    < 
+    
+    <
+     
     * Closing connection 0
+    
     1`
+    
     
     The '1' (wihout quotes) you see on the last line is the sequence number you use in the next command.
     
     Note: If you do not include the -v option, then curl shows only the sequence number in the output.
+
     Note: There will not be a new line after the sequence number shown by curl, so your command prompt will come right after the sequence number.
     
     
    3. GETting the hash. Run the following command
+   
    `curl http://localhost:1234/hash/1`
    
    It should come back with the password hash, that looks like
+   
    `a6306201dc431886db117dab3f14f78d234555b6e95c404ebc018d8915bd777d067519cb318460e0e94260c335b2988fd18a41ec1bb362444c9a48d0af74edac`
    
    Note: Again, notice that your command prompt will be printed right after the hash.
@@ -109,9 +133,11 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
 
 ## Getting statistics
    This implementation keeps track of the number of requests and the average time it took to compute the hash. You can query this information by
+   
    `curl http://localhost:1234/stats`
    
    This GET returns a JSON, that looks like
+   
    `{"total":3, "average":1}`
    
 ## Implementation notes
