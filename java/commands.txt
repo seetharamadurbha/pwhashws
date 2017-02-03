@@ -1,0 +1,4 @@
+curl -d 'password=AngryMonkey' http://localhost:1234/hash
+curl http://localhost:1234/hash/1
+curl http://localhost:1234/stats
+
