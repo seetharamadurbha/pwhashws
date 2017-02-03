@@ -132,5 +132,5 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
 1. The 'unique' number returned is actually a running sequence number.
 2. No 'authorization' checks performed on GET /hash call. So, anyone can query the hashed password for a given sequence number.
 3. A 5 second delay is used in computing the hashes, so if the GET on /hash/{{sequenceNumber}} is issued before that time, service will return a HTTP 404 (Not Found) error.
-3. Sequence numbers (and thus their computed hashes) will not persist across server restarts.
+3. Sequence numbers (and thus their computed hashes and statistics) will not persist across server restarts.
 4. Sequence numbers will NOT be unique behind a load-balancer, thus this implementation is NOT to be used behind a load-balancer.
