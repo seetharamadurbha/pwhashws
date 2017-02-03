@@ -43,7 +43,8 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
    
    You should see a successful server startup with the following output on the command line.
    
-   `Listening for transport dt_socket at address: 1234
+   ```
+    Listening for transport dt_socket at address: 1234
     Starting with configuration: 
 	portNumber: 1234
 	ipAddress: localhost/127.0.0.1
@@ -53,7 +54,8 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
     INFO - Log level is FINE [com.durbha.jc.pwhasher.Main init] Feb 03, 11:32am
 
     INFO - App ready [com.durbha.jc.pwhasher.Main startWithConfig] Feb 03, 11:32am
-    Enter exit to terminate:`
+    Enter exit to terminate:
+    ```
    
    Some notes:
    * The above command points to a logging.properties file. You can change the logging leve there.
@@ -78,7 +80,8 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
    Note: The verbose option (-v) is included above, so you can see the details.
    You should see the following output.
    
-   `* Connected to localhost (127.0.0.1) port 1234 (#0)
+   ```
+    * Connected to localhost (127.0.0.1) port 1234 (#0)
    
     > POST /hash HTTP/1.1
     
@@ -110,7 +113,8 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
      
     * Closing connection 0
     
-    1`
+    1
+    ```
     
     
     The '1' (wihout quotes) you see on the last line is the sequence number you use in the next command.
