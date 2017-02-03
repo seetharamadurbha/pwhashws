@@ -23,20 +23,23 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
 ## Java notes
    Java sources can be found in the 'java' folder. Following instructions apply to that directory.
    Change to java directory.
+   
    `cd java`
 
 ### Compile
    The Java source can be compiled using maven. To compile the sources, run the following command
+   
    `mvn clean compile`
 
 ### Test
    This implementation comes with comprehensive JUnit test cases. You can run them by the following command
+   
    `mvn test`
 
 ### Running the web service
    You can run the web services using the following command
 
-   `java -Djava.util.logging.config.file=logging.properties -classpath ./target/classes com.durbha.jc.pwhasher.Main -port 1234 -ipAddress localhost'
+   `java -Djava.util.logging.config.file=logging.properties -classpath ./target/classes com.durbha.jc.pwhasher.Main -port 1234 -ipAddress localhost`
    
    You should see a successful server startup with the following output on the command line.
    `Listening for transport dt_socket at address: 1234
