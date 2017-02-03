@@ -55,7 +55,7 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
 
     INFO - App ready [com.durbha.jc.pwhasher.Main startWithConfig] Feb 03, 11:32am
     Enter exit to terminate:
-    ```
+   ```
    
    Some notes:
    * The above command points to a logging.properties file. You can change the logging leve there.
@@ -114,7 +114,7 @@ This is a simple web service that let's you hash passwords using SHA-512. You do
     * Closing connection 0
     
     1
-    ```
+   ```
     
     
     The '1' (wihout quotes) you see on the last line is the sequence number you use in the next command.
