@@ -2,6 +2,12 @@ package com.durbha.jc.pwhasher;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * An object that holds the results - the computed hashes and the stats.
+ * 
+ * @author seetharama
+ *
+ */
 public class Results {
 
 	/*
@@ -12,6 +18,12 @@ public class Results {
 	private static int averageProcessingTime = 0;
 	private static long totalProcessingTime = 0;
 	
+	/**
+	 * Updates average times.
+	 * <p>It is synchronized so multiple threads cannot overwrite each others' compute times.
+	 * 
+	 * @param processTime The time it took the thread to compute the hash
+	 */
 	public static synchronized void updateAverageTimes(int processTime) {
 		
 		totalProcessingTime += processTime;
@@ -20,6 +32,13 @@ public class Results {
 		
 	}
 	
+	/**
+	 * An object that is used to hold both the number of requests and the average time.
+	 * <p>It is used to return the statistics.
+	 * 
+	 * @author seetharama
+	 *
+	 */
 	public static class AverageTimeSnapshot {
 		long numRequests=0;
 		int averageTime=0;
@@ -40,7 +59,7 @@ public class Results {
 	 * This method is synchronized so that the snapshot we get is accurate in terms of total requests so far and the average time.
 	 * The synchronization ensures that updates to either value do not take place while the values are being returned.
 	 * 
-	 * @return
+	 * @return A snapshot of the number of requests and corresponding average times
 	 */
 	public static synchronized AverageTimeSnapshot getAverageTimes() {
 		

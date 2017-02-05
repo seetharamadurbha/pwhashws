@@ -1,12 +1,28 @@
 package com.durbha.jc.pwhasher.http;
 
+import com.durbha.jc.pwhasher.func.RequestHandler;
 import com.durbha.jc.pwhasher.http.HTTPConstants.CONTENT_TYPES;
 import com.durbha.jc.pwhasher.http.HTTPConstants.RESPONSE_CODES;
 
+/**
+ * A standardized response, as coming back from a {@link RequestHandler} object to the {@link com.durbha.jc.pwhasher.SocketHandler}.
+ * 
+ * @author seetharama
+ *
+ */
 public class HTTPResponse {
 
+	/**
+	 * The effective response code to be sent back to the client.
+	 */
 	RESPONSE_CODES responseCode;
+	/**
+	 * The response content type. If this is present, then {@link #responseBody} must be present too.
+	 */
 	CONTENT_TYPES contentType;
+	/**
+	 * The response body. If this is present, then {@link HTTPResponse#contentType} must be present too.
+	 */
 	String responseBody;
 	
 	public HTTPResponse(RESPONSE_CODES responseCode,

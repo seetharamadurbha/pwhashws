@@ -6,12 +6,20 @@ import com.durbha.jc.pwhasher.http.HTTPConstants.RESPONSE_CODES;
 import com.durbha.jc.pwhasher.http.HTTPRequest;
 import com.durbha.jc.pwhasher.http.HTTPResponse;
 
+/**
+ * A class to handle /stats requests.
+ * 
+ * @author seetharama
+ *
+ */
 public class StatsHandler implements RequestHandler {
 
 	public StatsHandler() {
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Returns a JSON of the current statistics as gotten from {@link Results}.
+	 */
 	@Override
 	public HTTPResponse handle(HTTPRequest parsedRequest) {
 		Results.AverageTimeSnapshot stats = Results.getAverageTimes();

@@ -11,7 +11,9 @@ import com.durbha.jc.pwhasher.util.SocketResponder;
 import com.durbha.jc.pwhasher.util.ThreadPool;
 
 /**
- * This thread starts listening on a port.
+ * This thread starts listening on a port. This thread helps the Main thread to continue listening on the console for termination command.
+ * 
+ * <p>Creates a thread pool, starts listening on the port, creates a SocketHandler for every incoming request, and triggers the thread pool to run that SocketHandler.
  * 
  * @author seetharama
  *
@@ -64,6 +66,9 @@ public class SocketListener extends Thread {
 		
 	}
 
+	/**
+	 * Closes the socket, and informs the thread pool to stop as well.
+	 */
 	public void requestStop() {
 		logger.info("Stop requested...");
 		this.stopRequested = true;

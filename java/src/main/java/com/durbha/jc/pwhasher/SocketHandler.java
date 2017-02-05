@@ -51,7 +51,7 @@ public class SocketHandler implements Runnable {
 		} finally {
 		}
 		
-		//Alright, this.reqParser should have all the request information
+		//Alright, this.request should have all the request information
 		//Some validations first
 		validateRequest();
 		
@@ -59,13 +59,19 @@ public class SocketHandler implements Runnable {
 		if (this.reqHandler != null) {
 			HTTPResponse response = this.reqHandler.handle(this.request);
 			SocketResponder.sendResponse(socket, response.getResponseCode(), null, response.getContentType(), response.getResponseBody());
+		} else {
+			//This else must have been handled in the validateRequest method when a handler is not found
 		}
 	}
 	
+	/**
+	 * Validates the request. 
+	 */
 	private void validateRequest() {
 		if (this.request.getReqMethod() != null) {
 			this.request.setReqMethod(this.request.getReqMethod().toUpperCase());
 		}
+		//Request method is required and must be either GET or POST
 		if (this.request.getReqMethod() == null ||
 				(!HTTPConstants.METHOD_GET.equals(this.request.getReqMethod()) && !HTTPConstants.METHOD_POST.equals(this.request.getReqMethod())
 						)) {
@@ -74,6 +80,7 @@ public class SocketHandler implements Runnable {
 			return;
 		}
 		
+		//Request URI is required
 		if (this.request.getReqURI() == null || this.request.getReqURI().length() == 0) {
 			logger.warning("HTTP request URI not present");
 			SocketResponder.sendResponse(socket, RESPONSE_CODES.BAD_REQUEST, null, null, null);
@@ -93,6 +100,8 @@ public class SocketHandler implements Runnable {
 			if (this.request.getReqURI().startsWith("/")) { //to handle situations where the URI may not have a preceding '/'
 				this.request.setReqURI(this.request.getReqURI().substring(1));
 			}
+			
+			//Match against supported URIs and then get the corresponding handlers
 			if (this.request.getReqURI().startsWith(Constants.URI_REGEX_POST_HASH)) {
 				logger.finer("Request URI matches " + Constants.URI_REGEX_POST_HASH);
 				this.reqHandler = new PWHashHandler();
@@ -112,7 +121,10 @@ public class SocketHandler implements Runnable {
 	
 	/**
 	 * Parse a socket into data that is processable
-	 * @throws InvalidInputException 
+	 * 
+	 * @param socket Socket whose input stream has to be parsed
+	 * @throws InvalidInputException  If there is anything wrong with the input found in the socket
+	 * @throws FailedOperationException If the socket could not be read
 	 */
 	private void parseInputStream(Socket socket) throws FailedOperationException, InvalidInputException {
 		try {

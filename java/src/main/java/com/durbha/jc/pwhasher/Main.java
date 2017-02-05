@@ -8,16 +8,21 @@ import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
-/*
+/**
  * Password Hasher - main class that is run from the command line.
- * 
+ * <p>
  * Its purpose is to initialize the app and start the port listener.
  * 
+ * <p>
  * Command line options supported are
  * 
+ * <p>
  * -maxThreads: Number of threads to initialize (default: 10)
+ * <p>
  * -maxRequests: Number of requests to queue (after that, new requests will be rejected with Service Not Available error. (default: 100)
+ * <p>
  * -port: Port number to listen to (default: 80)
+ * <p>
  * -ipAddress: IP Address to listen to (default: gotten from resolving hostname)
  * 
  */
@@ -33,11 +38,27 @@ public class Main {
 	private static final String PARAMETER_IPADDRESS = "-ipAddress";
 
 	private Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
+	/**
+	 * This is a global variable used to indicate to any thread that the app is stopped, and that any pending processing must be terminated.
+	 */
 	public static boolean isAppStopped = false;
 	
 	SocketListener socketThread = null;
 
-	private void init(String[] args) {
+	/**
+	 * Main init function. Easiest way to use this class is to just call this method.
+	 * <p>
+	 * <code>
+	 * 		Main hasher = new Main();
+	 *		hasher.init(args);
+	 * </code>
+	 *
+	 * <p>This method is useful for starting from a command line, as it also listens to the console for the termination command ('exit').
+	 * <p>For starting the app without worrying about listening to command line, see {@link Main#startWithConfig(Configuration)}
+	 * 
+	 * @param args Command line arguments
+	 */
+	public void init(String[] args) {
 		
 		//Initialize the configuration
 		Configuration config = null;
@@ -81,11 +102,21 @@ public class Main {
 		System.exit(0);
 	}
 	
+	/**
+	 * Use this to initiate termination of the application.
+	 */
 	public void stopApp() {
 		isAppStopped = true; //This is to inform the HashingThread threads
 		this.socketThread.requestStop();
 	}
 	
+	/**
+	 * This method is useful to start the application without worrying about how the application is started (from command line, or otherwise).
+	 * 
+	 * <p>It initiates the threads.
+	 * 
+	 * @param config Configuration object
+	 */
 	public void startWithConfig(Configuration config) {
 		
 		//Create the concurrent hashmap store for password hashes - make concurrency same as number of threads
@@ -107,6 +138,14 @@ public class Main {
 		logger.info("App ready");
 		
 	}
+	
+	/**
+	 * Parses command line arguments. Expects one of the supported arguments and its value immediately following it.
+	 * 
+	 * @param args Command line arguments
+	 * @return Configuration object populated with the given values
+	 * @throws IllegalArgumentException if the given argument is not recognized, or its value could not parsed correctly
+	 */
 
 	private Configuration parseArgs(String[] args) {
 		Configuration config = new Configuration();

@@ -8,9 +8,9 @@ import java.io.InputStreamReader;
  * A BufferedReader that prevents DoS attacks by providing bounds for line length and number of lines
  * Modified from the below source to reject a line that is more than given number of characters.
  * 
- * @see https://code.google.com/p/owasp-esapi-java/issues/attachmentText?id=183&aid=-7134623167843514645&name=BoundedBufferedReader.java
- * @see https://github.com/seantmalone/BoundedBufferedReader/blob/master/BoundedBufferedReader.java
- * @version 1.0
+ * @see <a href="https://code.google.com/p/owasp-esapi-java/issues/attachmentText?id=183&aid=-7134623167843514645&name=BoundedBufferedReader.java">BoundedBufferedReader</a>
+ * @see <a href="https://github.com/seantmalone/BoundedBufferedReader/blob/master/BoundedBufferedReader.java">BoundedBufferedReader</a>
+ * 
  */
 
 
@@ -20,6 +20,15 @@ public class BoundedBufferedReader extends BufferedReader {
 		super(reader);
 	}
 
+	/**
+	 * Reads a line and enforces the given limitation.
+	 * 
+	 * @param maxLength Maximum number of characters to read. After this, reading stops and the content read thus far will be returned.
+	 * @param checkCRLF Whether to check and strip CRLF at the end of the line. If this is true, and no CRLF is found, then an exception is thrown.
+	 * @return read characters as a String
+	 * @throws IOException If the underlying stream could not be read
+	 * @throws InvalidInputException If any of the given conditions are not met
+	 */
 	public String readLine(int maxLength, boolean checkCRLF) throws IOException, InvalidInputException {
 
 		int currentPos = 0;
@@ -59,7 +68,7 @@ public class BoundedBufferedReader extends BufferedReader {
 				}
 			} else if (currentCharVal != LF) {
 				// maxLength has been hit, but we still need to remove
-				// newline characters.
+				// newline characters, if present
 				super.mark(1);
 				int nextCharVal = super.read();
 				if (nextCharVal == CR) {

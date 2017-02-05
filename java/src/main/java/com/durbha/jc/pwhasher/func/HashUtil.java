@@ -7,8 +7,21 @@ import java.security.NoSuchAlgorithmException;
 
 import com.durbha.jc.pwhasher.Constants;
 
+/**
+ * A stand alone hashing utility.
+ * 
+ * @author seetharama
+ *
+ */
 public class HashUtil {
-	
+
+	/**
+	 * Simply computes the hash using {@link Constants#HASHING_ALGORITHM}
+	 * 
+	 * @param passwordToHash Password to hash
+	 * @return computed hash Computer hash for the given password
+	 * @throws NoSuchAlgorithmException If implementation of the {@link Constants#HASHING_ALGORITHM} algorithm is not found
+	 */
 	public static String hashPassword(String passwordToHash) throws NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest.getInstance(Constants.HASHING_ALGORITHM);
 		//md.update(PRESET_SALT);

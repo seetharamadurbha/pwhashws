@@ -1,5 +1,11 @@
 package com.durbha.jc.pwhasher.util;
 
+/**
+ * An exception that denotes that the input parameters are not valid.
+ * 
+ * @author seetharama
+ *
+ */
 public class InvalidInputException extends Exception {
 
 	private static final long serialVersionUID = -1124862960272695532L;

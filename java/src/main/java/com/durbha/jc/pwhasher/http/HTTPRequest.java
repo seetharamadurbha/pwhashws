@@ -2,6 +2,15 @@ package com.durbha.jc.pwhasher.http;
 
 import java.util.HashMap;
 
+import com.durbha.jc.pwhasher.func.RequestHandler;
+
+/**
+ * A class that captures the essential elements of a HTTP request, that are required by the application.
+ * <p>This is a handy way for a HTTP request parser to capture the parsed values and hand them to a {@link RequestHandler} object.
+ * 
+ * @author seetharama
+ *
+ */
 public class HTTPRequest {
 	
 	HashMap<String, String> reqHeaders = new HashMap<String, String>();

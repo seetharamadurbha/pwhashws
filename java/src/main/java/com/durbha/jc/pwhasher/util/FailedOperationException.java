@@ -3,9 +3,9 @@ package com.durbha.jc.pwhasher.util;
 /**
  * A custom exception class indicating that there is a failure to perform the operation.
  * 
- * This exception must be thrown only after appropriate logging of the original exception condition.
+ * <p>This exception must be thrown only after appropriate logging of the original exception condition.
  * 
- * The recipient of this exception should not log the original exception again, but take an appropriate action following the failure to complete a particular operation.
+ * <p>The recipient of this exception should not log the original exception again, but take an appropriate action following the failure to complete a particular operation.
  * 
  * @author seetharama
  *

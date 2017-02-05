@@ -14,13 +14,29 @@ import com.durbha.jc.pwhasher.util.BoundedBufferedReader;
 import com.durbha.jc.pwhasher.util.FailedOperationException;
 import com.durbha.jc.pwhasher.util.InvalidInputException;
 
+/**
+ * Parses the incoming socket connection, per HTTP specification(s).
+ * 
+ * <p>It also enforces certain limitations on the request. For example, a header line cannot be more than {@value #MAX_CHARS_IN_REQUEST_LINE}.
+ * <p>Another check is on the content length - maximum content length supported is 5000 by default.
+ * 
+ * @author seetharama
+ *
+ */
 public class HTTPReqParser {
 	private Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
 	
+	/**
+	 * Maximum characters in the header - {@value}
+	 */
 	private static final int MAX_CHARS_IN_REQUEST_LINE = 300;
 	private static final int CONTENT_LENGTH_NOT_GIVEN = -1;
 	
 	int contentLength = CONTENT_LENGTH_NOT_GIVEN;
+	
+	/**
+	 * Maximum length of content (applies to a POST) - default is 5000
+	 */
 	int maxContentLength = 5000;//default
 	
 	boolean isFormURLEncoded = false;
@@ -31,6 +47,12 @@ public class HTTPReqParser {
 		REQUEST_LINE, HEADERS, BODY
 	}
 
+	/**
+	 * Constructor with the Input stream to process and the max content length that is allowed.
+	 * 
+	 * @param inStream Input stream to process
+	 * @param maxContentLength Maximum content length to process
+	 */
 	public HTTPReqParser(InputStream inStream, int maxContentLength) {
 		this.inStream = inStream;
 		this.maxContentLength = maxContentLength;
@@ -40,12 +62,12 @@ public class HTTPReqParser {
 	/**
 	 * Process the input stream to extract HTTP request method, URI, message body and other headers.
 	 * 
-	 * Processed values are stored in the instance fields.
+	 * <p>Processed values are used to create the {@link HTTPRequest} object.
 	 * 
-	 * @param in Input stream
-	 * @throws FailedOperationException
+	 * @return Parsed values populated into a {@link HTTPRequest} object
+	 * @throws InvalidInputException If any of the input validations fail
 	 */
-	public HTTPRequest parseInputStream() throws FailedOperationException, InvalidInputException {
+	public HTTPRequest parseInputStream() throws InvalidInputException {
 		
 		HTTPRequest request = new HTTPRequest();
 		

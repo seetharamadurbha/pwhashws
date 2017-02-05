@@ -8,6 +8,15 @@ import com.durbha.jc.pwhasher.Constants;
 import com.durbha.jc.pwhasher.Main;
 import com.durbha.jc.pwhasher.Results;
 
+/**
+ * A separate thread to compute the hash. This thread allows the request processing thread to immediately return to client with the sequence number.
+ * 
+ * <p>Note: There could be other ways to handle offloading of hashing to a separate thread. The current approach creates a separate thread for every incoming request.
+ * <p>That may not be always efficient. An alternate approach could be to use a single thread, and a ConcurrentLinkedQueue.
+ * 
+ * @author seetharama
+ *
+ */
 public class HashingThread extends Thread {
 	private Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
 
@@ -15,7 +24,13 @@ public class HashingThread extends Thread {
 	String passwordToHash;
 	
 	public static final long MILLIS_TO_WAIT = 5 * 1000; //5 seconds
-	
+
+	/**
+	 * Create this thread with the sequence number and the password to hash.
+	 * 
+	 * @param sequenceNumber Sequence number for this hashing request
+	 * @param passwordToHash Password to hash
+	 */
 	public HashingThread(long sequenceNumber, String passwordToHash) {
 		this.sequenceNumber = sequenceNumber;
 		this.passwordToHash = passwordToHash;

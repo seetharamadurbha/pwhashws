@@ -13,6 +13,12 @@ import com.durbha.jc.pwhasher.http.HTTPConstants;
 import com.durbha.jc.pwhasher.http.HTTPConstants.CONTENT_TYPES;
 import com.durbha.jc.pwhasher.http.HTTPConstants.RESPONSE_CODES;
 
+/**
+ * A utility class to send out a response on a socket, adhering to the HTTP protocol specifications.
+ * 
+ * @author seetharama
+ *
+ */
 public class SocketResponder {
 	private static Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
 	private static final String CR_LF = "\r\n";
@@ -24,11 +30,11 @@ public class SocketResponder {
 	 * Follows the venerable Wikipedia (https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Response_message)
 	 * [But, seriously, it follows https://tools.ietf.org/html/rfc7230#section-3.1. Wikipedia is only used when English is the prefered language.]
 	 * 
-	 * @param socket
-	 * @param responseCode
-	 * @param headers Optional
+	 * @param socket Socket on which the response will be sent
+	 * @param responseCode HTTP response code that needs to be sent back
+	 * @param headers Optional HTTP headers that need to be sent back
+	 * @param contentType Type of content that is being sent back
 	 * @param responseBody Optional - if present, must be UTF-8 encoded version of the underlying binary data
-	 * @throws FailedOperationException If the response could not be sent for any reason.
 	 */
 	public static void sendResponse(Socket socket, RESPONSE_CODES responseCode, 
 			HashMap<String, String> headers, 
